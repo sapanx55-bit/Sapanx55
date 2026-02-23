@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Premium Free Fire Emote Controller - Invite bots, join teams, and perform emotes instantly.">
+    <meta property="og:title" content="FF Emote Master">
+    <meta property="og:description" content="Control FF bots and perform emotes with this premium tool.">
+    <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ShahGCreator/icon@main/PNG/909000001.png">
+    <title>FF Emote Controller</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/ShahGCreator/icon@main/PNG/909000001.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <h1>FF Emote <span class="highlight">Master</span></h1>
+            <p>Premium Bot Controller by <a href="https://www.codespecters.com/" target="_blank" class="brand-link">Code
+                    Specter</a></p>
+        </header>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="menu-grid">
+            <div class="menu-card" onclick="showSection('bot-invite')">
+                <div class="icon-box"><i class="fa-solid fa-robot"></i></div>
+                <h3>Bot Invite</h3>
+                <p>Summon a bot to your team</p>
+            </div>
+            <div class="menu-card" onclick="showSection('join-team')">
+                <div class="icon-box"><i class="fa-solid fa-users-viewfinder"></i></div>
+                <h3>Join Team</h3>
+                <p>Join an existing team lobby</p>
+            </div>
+            <div class="menu-card" onclick="showSection('force-leave')">
+                <div class="icon-box"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                <h3>Force Leave</h3>
+                <p>Remove bot from the team</p>
+            </div>
+            <div class="menu-card highlight-card" onclick="showSection('perform-emote')">
+                <div class="icon-box"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <h3>Perform Emote</h3>
+                <p>Control emotes in real-time</p>
+            </div>
+        </div>
+
+        <!-- Section: Bot Invite -->
+        <section id="bot-invite" class="hidden-section">
+            <button class="back-btn" onclick="showHome()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <h2>Bot Invitation</h2>
+
+            <div class="form-group">
+                <label>Region</label>
+                <div class="select-group">
+                    <button class="region-btn" onclick="selectRegion(this, 'bd')" data-value="bd">BD</button>
+                    <button class="region-btn" onclick="selectRegion(this, 'sg')" data-value="sg">SG</button>
+                    <button class="region-btn" onclick="selectRegion(this, 'pk')" data-value="pk">PK</button>
+                </div>
+                <input type="hidden" id="invite-region">
+            </div>
+
+            <div class="form-group">
+                <label>Team Size</label>
+                <div class="select-group">
+                    <button class="size-btn" onclick="selectSize(this, 2)">2</button>
+                    <button class="size-btn" onclick="selectSize(this, 3)">3</button>
+                    <button class="size-btn" onclick="selectSize(this, 4)">4</button>
+                </div>
+                <div class="select-group" style="margin-top: 10px;">
+                    <button class="size-btn" onclick="selectSize(this, 5)">5</button>
+                    <button class="size-btn" onclick="selectSize(this, 6)">6</button>
+                </div>
+                <input type="hidden" id="invite-size">
+            </div>
+
+            <div class="form-group">
+                <label>Target UID</label>
+                <input type="number" id="invite-uid" placeholder="Enter Player UID">
+            </div>
+
+            <div class="form-group checkbox-group">
+                <label for="invite-leave">Leave after invite?</label>
+                <input type="checkbox" id="invite-leave">
+            </div>
+
+            <button class="action-btn" onclick="apiBotInvite()">Send Invite <i
+                    class="fa-solid fa-paper-plane"></i></button>
+        </section>
+
+        <!-- Section: Join Team -->
+        <section id="join-team" class="hidden-section">
+            <button class="back-btn" onclick="showHome()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <h2>Join Team</h2>
+
+            <div class="form-group">
+                <label>Region</label>
+                <div class="select-group">
+                    <button class="region-btn" onclick="selectRegion(this, 'bd')" data-value="bd">BD</button>
+                    <button class="region-btn" onclick="selectRegion(this, 'sg')" data-value="sg">SG</button>
+                    <button class="region-btn" onclick="selectRegion(this, 'pk')" data-value="pk">PK</button>
+                </div>
+                <input type="hidden" id="join-region">
+            </div>
+
+            <div class="form-group">
+                <label>Team Code</label>
+                <input type="number" id="join-tc" placeholder="Enter Team Code">
+            </div>
+
+            <button class="action-btn" onclick="apiJoinTeam()">Join Team <i
+                    class="fa-solid fa-right-to-bracket"></i></button>
+        </section>
+
+        <!-- Section: Force Leave -->
+        <section id="force-leave" class="hidden-section">
+            <button class="back-btn" onclick="showHome()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <h2>Force Leave</h2>
+
+            <div class="form-group">
+                <label>Region</label>
+                <div class="select-group">
+                    <button class="region-btn" onclick="selectRegion(this, 'bd')" data-value="bd">BD</button>
+                    <button class="region-btn" onclick="selectRegion(this, 'sg')" data-value="sg">SG</button>
+                    <button class="region-btn" onclick="selectRegion(this, 'pk')" data-value="pk">PK</button>
+                </div>
+                <input type="hidden" id="leave-region">
+            </div>
+
+            <div class="form-group">
+                <label>Verification Code</label>
+                <input type="text" id="leave-key" placeholder="Enter Verification Code">
+            </div>
+
+            <button class="action-btn danger-btn" onclick="apiForceLeave()">Force Leave <i
+                    class="fa-solid fa-person-walking-arrow-right"></i></button>
+        </section>
+
+        <!-- Section: Perform Emote -->
+        <section id="perform-emote" class="hidden-section">
+            <button class="back-btn" onclick="showHome()"><i class="fa-solid fa-arrow-left"></i> Back</button>
+            <h2>Perform Emote</h2>
+
+            <div class="config-card">
+                <div class="form-group">
+                    <label>Team Code</label>
+                    <input type="number" id="emote-tc" placeholder="Enter Team Code">
+                </div>
+
+                <div class="form-group">
+                    <label>Region</label>
+                    <div class="select-group">
+                        <button class="region-btn" onclick="selectRegion(this, 'bd')" data-value="bd">BD</button>
+                        <button class="region-btn" onclick="selectRegion(this, 'sg')" data-value="sg">SG</button>
+                        <button class="region-btn" onclick="selectRegion(this, 'pk')" data-value="pk">PK</button>
+                    </div>
+                    <input type="hidden" id="emote-region">
+                </div>
+
+                <div class="form-group">
+                    <label>Target UIDs (Max 5)</label>
+                    <div id="uid-container">
+                        <div class="uid-input-group">
+                            <input type="number" class="emote-uid" placeholder="UID 1">
+                            <button class="add-btn" onclick="addUidField()"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <button class="save-btn" onclick="saveConfig()">Apply Settings</button>
+            </div>
+
+            <div class="emote-controls">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="emote-search" placeholder="Search emote name or ID..."
+                        oninput="filterEmotes()">
+                </div>
+                <div class="filter-group">
+                    <select id="emote-category" onchange="filterEmotes()">
+                        <option value="all">All Categories</option>
+                        <!-- Options populated by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="manual-input">
+                <input type="number" id="manual-emote-id" placeholder="Manual Emote ID">
+                <button onclick="performManualEmote()">GO</button>
+            </div>
+
+            <div id="emulator-grid" class="emote-grid">
+                <!-- Emotes populated by JS -->
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 All rights reserved <a href="https://www.codespecters.com/" target="_blank"
+                    class="footer-link">CODE SPECTER</a></p>
+        </footer>
+
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-area"></div>
+
+    <script src="emotes.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
